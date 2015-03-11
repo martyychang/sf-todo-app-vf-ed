@@ -12,16 +12,6 @@
     <!-- UI elements -->
     <apex:outputPanel id="item" layout="block">
         
-        <!-- Close/Reopen button -->
-        <apex:commandButton value="Close" action="{!close}"
-                            oncomplete="handleTaskListItemClose()"
-                            reRender="item"
-                            rendered="{!AND(NOT(record.IsClosed), NOT(isNew))}"/>
-        <apex:commandButton value="Reopen" action="{!reopen}"
-                            oncomplete="handleTaskListItemOpen()"
-                            reRender="item"
-                            rendered="{!AND(record.IsClosed, NOT(isNew))}"/>
-        
         <!-- Text input for the to-do item -->
         <apex:inputTextarea value="{!record.Subject}"
                             disabled="{!record.IsClosed}">
@@ -34,8 +24,17 @@
         <!-- Save button -->
         <apex:commandButton value="Save" action="{!save}"
                             oncomplete="handleTaskListItemSave()"
+                            reRender="item"/>
+        
+        <!-- Close/Reopen buttons -->
+        <apex:commandButton value="Close" action="{!close}"
+                            oncomplete="handleTaskListItemClose()"
                             reRender="item"
-                            rendered="{!isNew}"/>
+                            rendered="{!AND(NOT(record.IsClosed), NOT(isNew))}"/>
+        <apex:commandButton value="Reopen" action="{!reopen}"
+                            oncomplete="handleTaskListItemOpen()"
+                            reRender="item"
+                            rendered="{!AND(record.IsClosed, NOT(isNew))}"/>
         
         <!-- Trash button -->
         <apex:commandButton value="Trash" action="{!trash}"
